@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
-import CardInformation from './components/InfoSheet';
-import SVGPath from './components/SVGPath';
-import data from './data/indonesia.json';
+// components
+import InfoSheet from './components/InfoSheet';
+import SVGElement from './components/SVGElement';
+// data
+import indonesiaMap from './data/indonesia-map.json';
+// interfaces
 import { IProvince } from './interfaces/IProvince';
 
 export default function App() {
@@ -10,7 +13,7 @@ export default function App() {
   const [province, setProvince] = useState<IProvince | null>(null);
 
   const handlePathClick = (id: string) => {
-    const selectedProvince = data.find((p) => p.id === id);
+    const selectedProvince = indonesiaMap.find((map) => map.id === id);
     if (selectedProvince) {
       setProvince(selectedProvince);
       setOpen(true);
@@ -19,18 +22,8 @@ export default function App() {
 
   return (
     <section className='grid h-screen place-items-center'>
-      <svg width='1000' height='350'>
-        {data.map(({ id, name, d }) => (
-          <SVGPath
-            key={id}
-            id={id}
-            name={name}
-            d={d}
-            onPathClick={() => handlePathClick(id)}
-          />
-        ))}
-      </svg>
-      <CardInformation open={open} onOpenChange={setOpen} province={province} />
+      <SVGElement shapes={indonesiaMap} onPathClick={handlePathClick}></SVGElement>
+      <InfoSheet open={open} onOpenChange={setOpen} province={province} />
     </section>
   );
 }
