@@ -5,7 +5,7 @@ interface SVGElementProps {
 
 export default function SVGElement({ shapes, onPathClick }: SVGElementProps) {
   return (
-    <svg width='1000' height='350'>
+    <svg viewBox='0 0 1000 350' className='size-full'>
       {shapes.map(({ id, name, d }) => (
         <path
           key={id}
