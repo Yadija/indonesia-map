@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 interface SVGElementProps {
   shapes: { id: string; name: string; d: string }[];
   onPathClick: (id: string) => void;
@@ -6,17 +8,25 @@ interface SVGElementProps {
 export default function SVGElement({ shapes, onPathClick }: SVGElementProps) {
   return (
     <svg viewBox='0 0 1000 350' className='size-full'>
-      {shapes.map(({ id, name, d }) => (
-        <path
+      {shapes.map(({ id, name, d }, index) => (
+        <motion.path
           key={id}
           id={id}
           d={d}
           strokeWidth='.5'
           onClick={() => onPathClick(id)}
-          className='cursor-pointer fill-[#f00] stroke-slate-300 transition hover:fill-white hover:stroke-[#f00]'
+          className='cursor-pointer transition hover:fill-white hover:stroke-[#f00]'
+          initial={{ opacity: 0, pathLength: 0, fill: '#f00', stroke: '#fff' }}
+          animate={{ opacity: 1, pathLength: 1 }}
+          transition={{
+            delay: index * 0.04,
+            duration: 0.5,
+            type: 'spring',
+            stiffness: 300,
+          }}
         >
           <title>{name}</title>
-        </path>
+        </motion.path>
       ))}
     </svg>
   );
