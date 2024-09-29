@@ -29,3 +29,7 @@ npm run build
 ```bash
 npm run preview
 ```
+
+# 📖Resource
+
+resource svg: https://simplemaps.com/svg/country/id
